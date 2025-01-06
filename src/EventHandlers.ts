@@ -12,18 +12,18 @@ import {
 } from "generated";
 
 const poolToProtocol: { [key: string]: Protocol } = {
-  "0x1af23bd57c62a99c59ad48236553d0dd11e49d2d": Protocol.VENUS,
-  "0x1fa916c27c7c2c4602124a14c77dbb40a5ff1be8": Protocol.VENUS,
-  "0x69cda960e3b20dfd480866fffd377ebe40bd0a46": Protocol.VENUS,
-  "0x697a70779c1a03ba2bd28b7627a902bff831b616": Protocol.VENUS,
-  "0x84064c058f2efea4ab648bb6bd7e40f83ffde39a": Protocol.VENUS,
-  "0xd6cd2c0fc55936498726cacc497832052a9b2d1b": Protocol.AAVE,
-  "0x12e7a9423d9128287e63017ee6d1f20e1c237f15": Protocol.SYNCSWAP,
+  "0x1af23bd57c62a99c59ad48236553d0dd11e49d2d": "VENUS",
+  "0x1fa916c27c7c2c4602124a14c77dbb40a5ff1be8": "VENUS",
+  "0x69cda960e3b20dfd480866fffd377ebe40bd0a46": "VENUS",
+  "0x697a70779c1a03ba2bd28b7627a902bff831b616": "VENUS",
+  "0x84064c058f2efea4ab648bb6bd7e40f83ffde39a": "VENUS",
+  "0xd6cd2c0fc55936498726cacc497832052a9b2d1b": "AAVE",
+  "0x12e7a9423d9128287e63017ee6d1f20e1c237f15": "SYNCSWAP",
 };
 
 // Helper function to get protocol
 function getProtocol(pool: string): Protocol {
-  return poolToProtocol[pool.toLowerCase()] || Protocol.UNKNOWN;
+  return poolToProtocol[pool.toLowerCase()] || "UNKNOWN";
 }
 
 Clagg.Compound.handler(async ({ event, context }) => {
@@ -44,7 +44,7 @@ Clagg.Deposit.handler(async ({ event, context }) => {
   const pool = event.params.pool;
   const amount = event.params.amount;
   const shares = event.params.shares;
-  const protocol = getProtocol(pool);
+  const protocol: Protocol = getProtocol(pool);
   const timestamp = BigInt(event.block.timestamp);
 
   const depositEntity: Clagg_Deposit = {
@@ -91,7 +91,7 @@ Clagg.Withdraw.handler(async ({ event, context }) => {
   const pool = event.params.pool;
   const amount = event.params.amount;
   const shares = event.params.shares;
-  const protocol = getProtocol(pool);
+  const protocol: Protocol = getProtocol(pool);
   const timestamp = BigInt(event.block.timestamp);
 
   const entity: Clagg_Withdraw = {
