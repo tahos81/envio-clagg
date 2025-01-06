@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: clagg-indexer
+networks:
+  - id: 324
+    start_block: 52885495
+    contracts:
+      - name: Clagg
+        address:
+          - 0x7f73934F333a25B456Dc9B8b62A19f211c991f1c
+        handler: src/EventHandlers.ts
+        events:
+          - event: Compound(address indexed pool, uint256 rewardAmount, uint256 incentiveAmount, uint256 liquidityAdded)
+          - event: Deposit(address indexed user, address indexed pool, uint256 amount, uint256 shares)
+          - event: Withdraw(address indexed user, address indexed pool, uint256 amount, uint256 shares)
+rollback_on_reorg: false

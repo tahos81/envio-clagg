@@ -1,0 +1,54 @@
+enum Protocol {
+  VENUS
+  AAVE
+  SYNCSWAP
+  UNKNOWN
+}
+
+type AccountPosition {
+  id: ID! # account + protocol + pool
+  account: String! @index
+  protocol: Protocol! @index
+  pool: String! @index
+  shares: BigInt!
+  deposited: BigInt!
+  withdrawn: BigInt!
+}
+
+type HistoricalAccountPosition {
+  id: ID! # account + protocol + pool + timestamp
+  account: String! @index
+  protocol: Protocol! @index
+  pool: String! @index
+  shares: BigInt!
+  deposited: BigInt!
+  withdrawn: BigInt!
+  timestamp: BigInt!
+}
+
+type Clagg_Compound {
+  id: ID!
+  pool: String! @index
+  rewardAmount: BigInt!
+  incentiveAmount: BigInt!
+  liquidityAdded: BigInt!
+  timestamp: BigInt!
+}
+
+type Clagg_Deposit {
+  id: ID!
+  user: String! @index
+  pool: String! @index
+  amount: BigInt!
+  shares: BigInt!
+  timestamp: BigInt!
+}
+
+type Clagg_Withdraw {
+  id: ID!
+  user: String! @index
+  pool: String! @index
+  amount: BigInt!
+  shares: BigInt!
+  timestamp: BigInt!
+}
